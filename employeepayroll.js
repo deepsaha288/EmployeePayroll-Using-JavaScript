@@ -33,7 +33,6 @@ function dayCount(dailwage){
     return dayCounter +" = "+dailwage;
 }
 
-
 function getFulltimwage(dailwage){
     return dailwage.includes("160");
 }
@@ -51,6 +50,7 @@ let emphrs=0;
 let totalWorkinghrs=0;
 let totalworkingDays=0;
 let empHrsArr=[];
+let empHrsWage=[];
 
 while(totalWorkinghrs<=TOTAL_WORKING_HRS && totalworkingDays<MAX_NUMBER_OF_WORKING_DAYS){
     totalworkingDays++;
@@ -59,10 +59,23 @@ while(totalWorkinghrs<=TOTAL_WORKING_HRS && totalworkingDays<MAX_NUMBER_OF_WORKI
     totalWorkinghrs+=emphrs;
     empHrsArr.push(emphrs);
     dailWage.push(calcWage(emphrs));
+   
+    empHrsWage.push(
+        {
+            daynum:totalworkingDays,
+            daylyhrs:emphrs,
+            dailwage:calcWage(emphrs),
+            toString(){
+                return "\nDay"+this.daynum+"=> Working Hours is: "+this.daylyhrs+" Wage Earned "+this.dailwage
+            },
+        }
+    );
 }
 
 
 dailWage.forEach(sum);
+
+
 let mapDayWithWage=dailWage.map(dayCount);
 console.log("Day with employee wage: "+mapDayWithWage);
 
@@ -70,7 +83,6 @@ console.log("Daily wage is: "+dailWage);
 console.log("Total Hours: "+totalWorkinghrs);
 console.log("Total Working Days: "+totalworkingDays);
 console.log("Daily Wage of a employee is: "+empWage);
-
 
 let fulltimeWage=mapDayWithWage.filter(getFulltimwage);
 console.log("Days where is full time wage: ");
@@ -85,12 +97,10 @@ console.log("Check All Element have Full Time Wage "+fulltimeWage.every(getFullt
 
 console.log("Check for Part time wage: "+mapDayWithWage.some(getPartTime));
 
-
 let count=0;
 let totalHrs=Array.from(mapDayWithWage.values()).reduce(findTotal,0);
 let totalSalary=dailWage.filter(dailwage => dailwage>0).reduce(findTotal,0);
 console.log("Emp Wage wit Arrow "+"Total hrs: "+totalHrs+"Total Salary: "+totalSalary);
-
 
 let nonWorkingDays=[];
 let partWorkingDays=[];
@@ -105,3 +115,5 @@ empHrsArr.forEach((value,key,map) => {
 console.log("Full working Days are: "+fullWorkingDays);
 console.log("Part working Days are: "+partWorkingDays);
 console.log("Non working Days are: "+nonWorkingDays);
+
+console.log("Showing Daily hours worked and wage earned "+empHrsWage);
