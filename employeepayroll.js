@@ -23,7 +23,6 @@ function calcWage(totalWorkinghrs){
 }
 
 let empWage=0;
-
 function sum(dailwage){
     return empWage+=dailwage;
 }
@@ -37,7 +36,6 @@ function dayCount(dailwage){
 function getFulltimwage(dailwage){
     return dailwage.includes("160");
 }
-
 
 function getPartTime(dailwage){
     return dailwage.includes("80");
@@ -55,11 +53,10 @@ while(totalWorkinghrs<=TOTAL_WORKING_HRS && totalworkingDays<MAX_NUMBER_OF_WORKI
     dailWage.push(calcWage(emphrs));
 }
 
-
 dailWage.forEach(sum);
 
 let mapDayWithWage=dailWage.map(dayCount);
-console.log(mapDayWithWage);
+console.log("Day with employee wage: "+mapDayWithWage);
 
 console.log("Daily wage is: "+dailWage);
 console.log("Total Hours: "+totalWorkinghrs);
@@ -70,7 +67,9 @@ let fulltimeWage=mapDayWithWage.filter(getFulltimwage);
 console.log("Days where is full time wage: ");
 console.log(fulltimeWage);
 
+
 console.log("Day where it is full time wage: "+mapDayWithWage.find(getFulltimwage));
+
 
 console.log("Check All Element have Full Time Wage "+fulltimeWage.every(getFulltimwage));
 
